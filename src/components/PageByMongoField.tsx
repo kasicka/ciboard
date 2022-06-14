@@ -310,15 +310,15 @@ export function PageByMongoField() {
     }, []);
 
     // From url
-    const params = useParams<MongoFieldsParams>();
-    const fieldValues = params.value.split(',');
+    const params = useParams(); // <MongoFieldsParams>();
+    const fieldValues = params.value?.split(',');
 
     return (
         <PageCommon title={pageTitle}>
             <ArtifactsTable
-                artifactType={params.type}
-                fieldName={params.search}
-                fieldValues={fieldValues}
+                artifactType={params.type || ''}
+                fieldName={params.search || ''}
+                fieldValues={fieldValues || []}
                 onArtifactsLoaded={onArtifactsLoaded}
             />
             <ToastAlertGroup />

@@ -22,7 +22,7 @@
 import _ from 'lodash';
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Route, Routes, useParams } from 'react-router-dom';
 import {
     Nav,
     Text,
@@ -150,12 +150,18 @@ function PageHeader({ release, results, section, sstList }: PageHeaderProps) {
     );
 }
 
-export function PageSST() {
+function PageSSTInternal() {
     // Parameters from the URL -- /ssr/:section/:release
-    const { release, section } = useParams<PageSSTParams>();
+    const { release, section } = useParams(); // <PageSSTParams>();
     // We don't try to load SST test results until both the section name
     // and release is specified.
     const skipResultsQuery = !release || !section;
+
+    // <Routes>
+    //   <Route path="/" />    -- empty, pick SST
+    //   <Route path=":section" />    -- selected SST, pick release
+    //   <Route path=":section/:release" />    -- show results table
+    // </Routes>
 
     const listQuery = useQuery(SSTListQuery);
     const resultsQuery = useQuery(SSTResultsQuery, {
@@ -236,5 +242,15 @@ export function PageSST() {
                 )}
             </PageSection>
         </PageCommon>
+    );
+}
+
+export function PageSST() {
+    return (
+        <Routes>
+            <Route path="/" element={<PageSSTInternal />} />
+            <Route path=":section" element={<PageSSTInternal />} />
+            <Route path=":section/:release" element={<PageSSTInternal />} />
+        </Routes>
     );
 }

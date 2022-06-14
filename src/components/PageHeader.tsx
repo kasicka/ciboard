@@ -173,8 +173,8 @@ export const DashboardPageHeader = () => {
         <NavItem
             itemId={item.key}
             key={item.key}
-            to={`#${item.to}`}
-            isActive={item.to === location.pathname}
+            to={`#${item.path}`}
+            isActive={item.path === location.pathname}
         >
             {item.title}
         </NavItem>

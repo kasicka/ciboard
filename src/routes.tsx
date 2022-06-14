@@ -29,43 +29,42 @@ import { PageSST } from './components/PageSST';
 export interface MenuEntry {
     title: string;
     key: string;
-    to: string;
+    path: string;
     route?: string;
-    render: (props: any) => JSX.Element;
+    element: JSX.Element;
 }
 
 export const menuRoutes: MenuEntry[] = [
     {
         title: 'Search test results',
         key: 'artifact-search',
-        to: '/search',
-        render: (props) => <PageByFilters {...props} />,
+        path: '/search',
+        element: <PageByFilters />,
     },
     {
         title: 'Subsystems',
         key: 'subsystems',
-        to: '/sst',
-        route: '/sst/:section?/:release?',
-        render: (props) => <PageSST {...props} />,
+        path: '/sst',
+        route: '/sst/*',
+        element: <PageSST />,
     },
     {
         title: 'Gating tests',
         key: 'gatingtests',
-        to: '/gating',
-        route: '/gating',
-        render: (props) => <PageGating {...props} />,
+        path: '/gating',
+        element: <PageGating />,
     },
     {
         title: 'Report issue',
         key: 'issue',
-        to: '/newissue',
-        render: (props) => <PageNewIssue {...props} />,
+        path: '/newissue',
+        element: <PageNewIssue />,
     },
     {
         title: 'Help',
         key: 'help',
-        to: '/help',
-        render: (props) => <PageHelp {...props} />,
+        path: '/help',
+        element: <PageHelp />,
     },
 ];
 
@@ -73,7 +72,7 @@ export const otherRoutes: MenuEntry[] = [
     {
         title: '',
         key: 'artifact',
-        to: '/artifact/:type/:search/:value',
-        render: (props) => <PageByMongoField {...props} />,
+        path: '/artifact/:type/:search/:value',
+        element: <PageByMongoField />,
     },
 ];
